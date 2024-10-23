@@ -8,11 +8,7 @@ public class TabelaHash implements TabelaHash_IF {
     private Lista_IF[] tabela;
     private int tamanhoTabela;
 
-    public TabelaHash() {
-        this(16);
-    }
 
-    @SuppressWarnings("unchecked")
     public TabelaHash(int tamanhoTabela) {
         this.tamanhoTabela = tamanhoTabela;
         this.tabela = new Lista_IF[tamanhoTabela];
@@ -27,8 +23,15 @@ public class TabelaHash implements TabelaHash_IF {
 
     @Override
     public Filme_IF remove(long id) throws Exception {
+        if (isEmpty())
+            throw new Exception("Tabela Vazia, nada a ser removido!");
+
         int indice = hash(id);
-        return tabela[indice].remove(id);
+        try{
+            return tabela[indice].remove(id);
+        }catch (Exception e){
+            throw new Exception("Este filme não se encontra");
+        }
     }
 
     @Override
@@ -49,8 +52,15 @@ public class TabelaHash implements TabelaHash_IF {
 
     @Override
     public Filme_IF search(long id) throws Exception {
+        if (isEmpty())
+            throw new Exception("Tabela Vazia, nada a ser procurado!");
+
         int indice = hash(id);
-        return tabela[indice].search(id);
+        try{
+            return tabela[indice].search(id);
+        }catch (Exception e){
+            throw new Exception("Este filme não se encontra");
+        }
     }
 
     @Override
