@@ -4,7 +4,7 @@ import interfaces.Filme_IF;
 import interfaces.Pilha_IF;
 
 public class Pilha implements Pilha_IF {
-    private Lista lista;
+    protected Lista lista;
 
     public Pilha(){
         lista = new Lista();
@@ -37,6 +37,5 @@ public class Pilha implements Pilha_IF {
         }
         return lista.tail();
     }
-
 
 }

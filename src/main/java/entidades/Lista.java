@@ -3,8 +3,8 @@ import interfaces.Filme_IF;
 import interfaces.Lista_IF;
 
 public class Lista implements Lista_IF {
-    private Node head;
-    private Node tail;
+    protected Node head;
+    protected Node tail;
     private int size;
 
     public Lista(){

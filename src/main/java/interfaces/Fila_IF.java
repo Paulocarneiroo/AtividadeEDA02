@@ -13,4 +13,9 @@ public interface Fila_IF  {
 
     public Filme_IF head() throws Exception;
 
+    //PROVISÓRIO
+    public Filme_IF searchById(long id) throws Exception;
+
+    //PROVISÓRIO
+    public void print() throws Exception;
 }

@@ -11,42 +11,46 @@ public class BST implements BST_IF {
 
     @Override
     public Filme_IF remove(long id) throws Exception {
-        No removido = removerRecursivo(this.root, id);
-        if (removido != null) {
+        No[] removido = new No[1];  // Usar um array para capturar o nó removido
+        this.root = removerRecursivo(this.root, id, removido);
+        if (removido[0] != null) {
             size--;
-            return removido.getFilme();
+            return removido[0].getFilme();
         }
         throw new Exception("Filme não encontrado");
     }
-    private No removerRecursivo(No atual, long id) {
+
+    private No removerRecursivo(No atual, long id, No[] removido) {
         if (atual == null) {
             return null;
         }
         if (id < atual.getFilme().getID()) {
-            atual.setEsquerda(removerRecursivo(atual.getEsquerda(), id));
+            atual.setEsquerda(removerRecursivo(atual.getEsquerda(), id, removido));
         } else if (id > atual.getFilme().getID()) {
-            atual.setDireita(removerRecursivo(atual.getDireita(), id));
+            atual.setDireita(removerRecursivo(atual.getDireita(), id, removido));
         } else {
             // Nó encontrado
+            removido[0] = atual;  // Captura o nó removido
             if (atual.getEsquerda() == null) {
                 return atual.getDireita();
             } else if (atual.getDireita() == null) {
                 return atual.getEsquerda();
             }
-
             // Nó com dois filhos: encontra o menor nó da subárvore direita
             No menor = encontrarMenor(atual.getDireita());
             atual.setFilme(menor.getFilme());
-            atual.setDireita(removerRecursivo(atual.getDireita(), menor.getFilme().getID()));
+            atual.setDireita(removerRecursivo(atual.getDireita(), menor.getFilme().getID(), removido));
         }
         return atual;
     }
+
     private No encontrarMenor(No atual) {
         while (atual.getEsquerda() != null) {
             atual = atual.getEsquerda();
         }
         return atual;
     }
+
 
     @Override
     public void insert(Filme_IF elemento) {

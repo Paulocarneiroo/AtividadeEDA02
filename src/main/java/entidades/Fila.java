@@ -50,4 +50,39 @@ public class Fila implements Fila_IF {
         }
         return pilha2.top();
     }
+
+    @Override
+    public Filme_IF searchById(long id) throws Exception{
+        if (isEmpty())
+            throw new Exception("A fila está vazia.");
+
+        try{
+            return pilha1.lista.search(id);
+        }catch (Exception e){
+            try{
+                return pilha2.lista.search(id);
+            }catch (Exception e2){
+                throw new Exception("Filme com ID " + id + " não encontrado.");
+            }
+        }
+    }
+
+    @Override
+    public void print() throws Exception{
+        if (isEmpty())
+            throw new Exception("Fila Vazia!");
+
+        Node calda = pilha2.lista.tail;
+
+        while (calda != null){
+            System.out.println(calda);
+            calda = pilha2.lista.tail.getPrev();
+        }
+
+        Node cabeca = pilha1.lista.head;
+        while (cabeca != null){
+            System.out.println(cabeca);
+            cabeca = pilha1.lista.head.getNext();
+        }
+    }
 }

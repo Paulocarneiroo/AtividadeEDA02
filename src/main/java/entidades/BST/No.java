@@ -7,8 +7,6 @@ public class No {
     No left;
     No right;
 
-    public No(){}
-
     public No(Filme_IF filme) {
         this.filme = filme;
         this.left = null;

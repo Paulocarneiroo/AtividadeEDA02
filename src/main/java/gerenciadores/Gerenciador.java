@@ -73,12 +73,44 @@ public class Gerenciador {
                 case 0:
                     break;
                 case 1:
+                    System.out.print("Informe o ID do Filme: ");
+                    int id = sc.nextInt();
+                    sc.nextLine(); // Limpar buffer
+                    System.out.print("Informe o Nome do Filme: ");
+                    String nome = sc.nextLine();
+                    System.out.print("Informe a Nota do Filme: ");
+                    int nota = sc.nextInt();
+                    System.out.print("Informe o Ano do Filme: ");
+                    int ano = sc.nextInt();
+
+                    bst.insert(new Filme(id, nome, nota, ano));
+                    System.out.println("Filme inserido com sucesso na Árvore!");
+                    System.out.println();
                     break;
                 case 2:
+                    System.out.print("Informe o ID do Filme a ser buscado: ");
+                    long idBusca = sc.nextLong();
+                    try{
+                        Filme_IF filmeBuscado = bst.search(idBusca);
+                        System.out.println(filmeBuscado);
+                    }catch (Exception e){
+                        System.err.println(e.getMessage());
+                    }
                     break;
                 case 3:
+                    System.out.print("Informe o ID do Filme a ser removido: ");
+                    long idRemocao = sc.nextLong();
+                    try{
+                        Filme_IF filmeRemovido = bst.remove(idRemocao);
+                        System.out.println("Filme " + filmeRemovido + " removido com sucesso!");
+                    }catch (Exception e){
+                        System.err.println(e.getMessage());
+                    }
                     break;
                 case 4:
+                    for(Filme_IF f : bst.order()){
+                        System.out.println(f);
+                    }
                     break;
                 default:
                     System.err.println("Entrada Inválida");
@@ -95,7 +127,7 @@ public class Gerenciador {
             System.out.println(ANSI_PURPLE + "FILA" + ANSI_RESET);
             System.out.println("1. Inserir Filme");
             System.out.println("2. Buscar Filme por ID");
-            System.out.println("3. Remover Filme por ID");
+            System.out.println("3. Remover Filme (dequeue)");
             System.out.println("4. Exibir Filmes Ordenados por ID");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
@@ -105,10 +137,37 @@ public class Gerenciador {
                 case 0:
                     break;
                 case 1:
+                    System.out.print("Informe o ID do Filme: ");
+                    int id = sc.nextInt();
+                    sc.nextLine(); // Limpar buffer
+                    System.out.print("Informe o Nome do Filme: ");
+                    String nome = sc.nextLine();
+                    System.out.print("Informe a Nota do Filme: ");
+                    int nota = sc.nextInt();
+                    System.out.print("Informe o Ano do Filme: ");
+                    int ano = sc.nextInt();
+
+                    fila.enqueue(new Filme(id, nome, nota, ano));
+                    System.out.println("Filme inserido com sucesso na fila!");
+                    System.out.println();
                     break;
                 case 2:
+                    System.out.print("Informe o ID do Filme a ser buscado: ");
+                    long idBusca = sc.nextLong();
+                    try{
+                        Filme_IF filmeBuscado = fila.searchById(idBusca);
+                        System.out.println(filmeBuscado);
+                    }catch (Exception e){
+                        System.err.println(e.getMessage());
+                    }
                     break;
                 case 3:
+                    try{
+                        Filme_IF filmeRemovido = fila.dequeue();
+                        System.out.println("Filme " + filmeRemovido + " removido com sucesso!");
+                    }catch (Exception e){
+                        System.err.println(e.getMessage());
+                    }
                     break;
                 case 4:
                     break;
@@ -147,7 +206,7 @@ public class Gerenciador {
                     int ano = sc.nextInt();
 
                     tabela.insert(new Filme(id, nome, nota, ano));
-                    System.out.println("Filme inserido com sucesso na fila!");
+                    System.out.println("Filme inserido com sucesso na tabela hash!");
                     System.out.println();
                     break;
                 case 2:
@@ -165,7 +224,7 @@ public class Gerenciador {
                     long idRemocao = sc.nextLong();
                     try {
                         Filme_IF filmeRemovido = tabela.remove(idRemocao);
-                        System.out.println("Filme: " + filmeRemovido + " removido com sucesso!");
+                        System.out.println("Filme: " + filmeRemovido.getNome() + " removido com sucesso!");
                         System.out.println();
                     }catch (Exception e){
                         System.err.println(e.getMessage());
