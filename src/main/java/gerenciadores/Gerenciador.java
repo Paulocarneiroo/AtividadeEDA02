@@ -170,6 +170,11 @@ public class Gerenciador {
                     }
                     break;
                 case 4:
+                    try {
+                        fila.print();
+                    }catch (Exception e){
+                        System.err.println(e.getMessage());
+                    }
                     break;
                 default:
                     System.err.println("Entrada Inválida");

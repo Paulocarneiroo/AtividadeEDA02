@@ -3,6 +3,11 @@ package entidades;
 import interfaces.Fila_IF;
 import interfaces.Filme_IF;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 public class Fila implements Fila_IF {
     private Pilha pilha1;
     private Pilha pilha2;
@@ -68,21 +73,32 @@ public class Fila implements Fila_IF {
     }
 
     @Override
-    public void print() throws Exception{
-        if (isEmpty())
+    public void print() throws Exception {
+        if (isEmpty()) {
             throw new Exception("Fila Vazia!");
+        }
+        List<Filme_IF> filmes = new ArrayList<>();
 
-        Node calda = pilha2.lista.tail;
-
-        while (calda != null){
-            System.out.println(calda);
-            calda = pilha2.lista.tail.getPrev();
+        while (!pilha2.isEmpty()) {
+            filmes.add(pilha2.pop());
         }
 
-        Node cabeca = pilha1.lista.head;
-        while (cabeca != null){
-            System.out.println(cabeca);
-            cabeca = pilha1.lista.head.getNext();
+        while (!pilha1.isEmpty()) {
+            pilha2.push(pilha1.pop());
+        }
+        while (!pilha2.isEmpty()) {
+            filmes.add(pilha2.pop());
+        }
+
+        Collections.sort(filmes, Comparator.comparingLong(Filme_IF::getID));
+
+        for (Filme_IF filme : filmes) {
+            System.out.println(filme);
+        }
+
+        for (Filme_IF filme : filmes) {
+            pilha1.push(filme);
         }
     }
+
 }
