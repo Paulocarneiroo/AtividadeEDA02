@@ -50,5 +50,4 @@ public class TabelaHashTest {
         });
         assertEquals("Este filme não se encontra", exception.getMessage());
     }
-
 }
